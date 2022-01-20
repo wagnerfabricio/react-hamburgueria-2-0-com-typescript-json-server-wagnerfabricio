@@ -19,6 +19,7 @@ export const theme = extendTheme({
     },
     green: {
       primary: "#27AE60",
+      secondary: "#93D7AF",
       success: "#168821",
     },
     yellow: {
