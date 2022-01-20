@@ -1,13 +1,7 @@
-import {
-  Button,
-  Center,
-  Flex,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
+import { Flex, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+import { useProd } from "../../contexts/ProdContext";
 import { theme } from "../../styles/theme";
 
 interface SearchBarProps {
@@ -18,7 +12,10 @@ interface SearchBarProps {
 const SearchBar = ({ openSearch, setOpenSearch }: SearchBarProps) => {
   const [search, setSearch] = useState("");
 
+  const { searchProducts } = useProd();
+
   const handleSearch = () => {
+    searchProducts(search);
     setOpenSearch(false);
   };
 
