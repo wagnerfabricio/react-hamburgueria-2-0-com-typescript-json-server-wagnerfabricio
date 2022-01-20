@@ -94,11 +94,12 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           ref={ref}
           _focus={{
             bgColor: "white",
-            border: "2px",
           }}
           {...rest}
         />
-        {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+        {!!error && (
+          <FormErrorMessage fontSize="xs">{error.message}</FormErrorMessage>
+        )}
       </InputGroup>
     </FormControl>
   );

@@ -3,7 +3,6 @@ import {
   Center,
   Flex,
   Grid,
-  Heading,
   Image,
   Text,
 } from "@chakra-ui/react";

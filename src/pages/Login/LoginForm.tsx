@@ -35,6 +35,7 @@ const LoginForm = ({
       onSubmit={handleSignIn}
       border="2px solid"
       borderColor="gray.0"
+      borderRadius='5px'
       padding="24px"
       w={["100%", "100%", "40%", "40%"]}
     >

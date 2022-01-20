@@ -32,12 +32,12 @@ const Login = () => {
   const handleSignIn = (data: SignInData) => {
     setLoading(true);
     signIn(data)
-      .then((_) => {setLoading(false)
-      
+      .then((_) => {
+        setLoading(false);
       })
       .catch((err) => {
         toast({
-          position: 'top',
+          position: "top",
           title: "Ooops...",
           description: "Email ou senha inválidos",
           status: "error",
