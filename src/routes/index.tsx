@@ -7,12 +7,12 @@ import Signup from "../pages/Signup";
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Login} />
+      <Route exact path="/" component={Dashboard} />
       <Route path="/signup" component={Signup} />
-      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/login" component={Login} />
       <Route component={PageNotFound} />
     </Switch>
   );
 };
 
-export default Routes
+export default Routes;
