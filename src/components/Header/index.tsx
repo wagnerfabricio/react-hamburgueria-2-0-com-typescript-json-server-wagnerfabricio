@@ -10,10 +10,12 @@ import {
 import { useEffect, useState } from "react";
 import { FaSearch, FaShoppingCart, FaSignOutAlt } from "react-icons/fa";
 import Logo from "../../assets/images/logo.svg";
+import { useProd } from "../../contexts/ProdContext";
 import SearchBar from "./SearchBar";
 
 const Header = () => {
   const [openSearch, setOpenSearch] = useState(false);
+  const {searchProducts} = useProd()
 
   if (openSearch)
     return (
@@ -23,9 +25,10 @@ const Header = () => {
         bg="gray.0"
         justifyContent="space-between"
         alignItems="center"
+        flexShrink="0"
         paddingX="5vw"
       >
-        <SearchBar openSearch setOpenSearch={setOpenSearch} />{" "}
+        <SearchBar openSearch setOpenSearch={setOpenSearch} />
       </Flex>
     );
 
@@ -36,9 +39,10 @@ const Header = () => {
       bg="gray.0"
       justifyContent="space-between"
       alignItems="center"
+      flexShrink="0"
       paddingX="5vw"
     >
-      <Image src={Logo} w="160px" />
+      <Image src={Logo} w="160px" onClick={() => searchProducts("")}/>
       <Flex alignItems="center">
         <SearchBar openSearch={openSearch} setOpenSearch={setOpenSearch} />
         <HStack spacing="5">
