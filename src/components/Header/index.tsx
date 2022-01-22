@@ -21,7 +21,12 @@ const Header = () => {
 
   const { signOut } = useAuth();
   const { searchProducts } = useProd();
-  const { cart, cartQty } = useCart();
+  const { cart, cartQty, isCartLoading, setIsCartLoading } = useCart();
+
+  const handleClick = () => {
+    searchProducts("");
+    setIsCartLoading(false);
+  };
 
   const {
     isOpen: isCartOpen,
@@ -56,7 +61,7 @@ const Header = () => {
         flexShrink="0"
         paddingX="5vw"
       >
-        <Image src={Logo} w="160px" onClick={() => searchProducts("")} />
+        <Image src={Logo} w="160px" onClick={handleClick} />
         <Flex alignItems="center">
           <SearchBar openSearch={openSearch} setOpenSearch={setOpenSearch} />
           <HStack spacing="5">

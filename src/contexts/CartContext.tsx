@@ -38,6 +38,8 @@ interface CartData {
   cart: iProduct[];
   cartQty: number;
   cartTotal: number;
+  isCartLoading: boolean;
+  setIsCartLoading: (value: boolean) => void;
   getCart: () => Promise<void>;
   addToCart: (newProduct: iProduct | addNewProduct) => Promise<void>;
   subFromCart: (product: iProduct) => Promise<void>;
@@ -79,6 +81,7 @@ export const CartProvider = ({ children }: CartContextProps) => {
           isClosable: true,
         });
         signOut()
+        console.log(err.message);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
