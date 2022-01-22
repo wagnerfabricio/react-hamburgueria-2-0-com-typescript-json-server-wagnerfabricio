@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Heading, useToast } from "@chakra-ui/react";
+import { Button, Flex, Grid, Heading, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { useCart } from "../../contexts/CartContext";
