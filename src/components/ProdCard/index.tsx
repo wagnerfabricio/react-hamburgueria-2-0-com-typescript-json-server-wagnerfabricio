@@ -1,13 +1,6 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  Heading,
-  Image,
-  Text,
-} from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { Button, Flex, Grid, Heading, Image, Text } from "@chakra-ui/react";
+import { useState } from "react";
+import { useCart } from "../../contexts/CartContext";
 import formatValue from "../../utils/formatValue";
 
 interface ProdCardProps {
@@ -22,16 +15,9 @@ interface iProduct {
   price: number;
 }
 
-const temp = {
-  category: "Sanduíches",
-  image: "https://i.ibb.co/P1QVcr0/202109090436-skn5yx754p-1.png",
-  name: "Hamburguer",
-  price: 14,
-  prodId: 1,
-};
-
 const ProdCard = ({ product }: ProdCardProps) => {
   const [colorSchema, setColorSchema] = useState(false);
+  const { addToCart, isCartLoading } = useCart();
   const formatedPrice = formatValue(product.price);
 
   return (
@@ -43,12 +29,13 @@ const ProdCard = ({ product }: ProdCardProps) => {
       border="2px solid"
       borderColor="gray.0"
       borderRadius="5px"
-      _hover={{ borderColor: "green.primary" }}
+      _hover={{ transform: "translateY(7px)", borderColor: "green.primary" }}
+      transition="border 0.2s, ease 0s, transform 0.2s"
       onMouseEnter={() => setColorSchema(true)}
       onMouseLeave={() => setColorSchema(false)}
     >
       <Grid placeItems="center" width="296px" bg="gray.0" borderTopRadius="5px">
-        <Image src={product.image} objectFit='cover' />
+        <Image src={product.image} objectFit="cover" alt={product.name} />
       </Grid>
       <Flex
         flexDirection="column"
@@ -67,11 +54,13 @@ const ProdCard = ({ product }: ProdCardProps) => {
           {formatedPrice}
         </Text>
         <Button
+          isLoading={isCartLoading}
           w="100px"
           h="40px"
           color="white"
           bg={colorSchema ? "green.primary" : "gray.150"}
           _hover={{ bg: "green.secondary" }}
+          onClick={() => addToCart(product.prodId)}
         >
           Adicionar
         </Button>
