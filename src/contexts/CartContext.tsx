@@ -9,7 +9,6 @@ import {
 } from "react";
 import { api } from "../services/api";
 import { useAuth } from "./AuthContext";
-import { useProd } from "./ProdContext";
 
 interface CartContextProps {
   children: ReactNode;
@@ -54,19 +53,17 @@ export const CartProvider = ({ children }: CartContextProps) => {
 
   const { user, accessToken, signOut } = useAuth();
 
-
   const toast = useToast();
 
   const getCart = useCallback(async () => {
-    return await api
+    await api
       .get(`/users/${user.id}?_embed=cart`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       })
       .then((res) => {
-        const newCart = [...cart, ...res.data.cart];
-        setCart(newCart);
+        setCart(res.data.cart);
       })
       .catch((_) => {
         toast({
@@ -78,10 +75,10 @@ export const CartProvider = ({ children }: CartContextProps) => {
           duration: 4000,
           isClosable: true,
         });
-        signOut()
+        signOut();
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [accessToken]);
 
   const addToCart = useCallback(
     async (newProduct: iProduct | addNewProduct) => {
@@ -159,39 +156,41 @@ export const CartProvider = ({ children }: CartContextProps) => {
     [cart]
   );
 
-  const subFromCart = useCallback(async (product: iProduct) => {
-    const newQty = product.quantity - 1;
+  const subFromCart = useCallback(
+    async (product: iProduct) => {
+      const newQty = product.quantity - 1;
 
-    if (newQty === 0) {
-      return;
-    }
+      if (newQty === 0) {
+        return;
+      }
 
-    const data = { quantity: newQty };
+      const data = { quantity: newQty };
 
-    await api
-      .patch(`/cart/${product.id}`, data, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((_) => getCart())
-      .catch((_) => {
-        toast({
-          position: "top",
-          title: "Ooops...",
-          description:
-            "Não foi possível alterar o produto, parece que nossos servidores estão fora do ar, tente novamente mais tarde.",
-          status: "error",
-          duration: 4000,
-          isClosable: true,
+      await api
+        .patch(`/cart/${product.id}`, data, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then((_) => getCart())
+        .catch((_) => {
+          toast({
+            position: "top",
+            title: "Ooops...",
+            description:
+              "Não foi possível alterar o produto, parece que nossos servidores estão fora do ar, tente novamente mais tarde.",
+            status: "error",
+            duration: 4000,
+            isClosable: true,
+          });
         });
-      });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cart]);
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    [cart]
+  );
 
   const clearCart = useCallback(() => {
-
     cart.forEach(async (item) => {
       await api.delete(`/cart/${item.id}`, {
         headers: {
@@ -201,7 +200,7 @@ export const CartProvider = ({ children }: CartContextProps) => {
     });
 
     setCart([]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   const qtyOfProducts = () => {

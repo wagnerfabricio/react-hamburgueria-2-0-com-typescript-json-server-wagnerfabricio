@@ -29,6 +29,7 @@ const Header = () => {
     onClose: onCartClose,
   } = useDisclosure();
 
+
   if (openSearch)
     return (
       <Flex
