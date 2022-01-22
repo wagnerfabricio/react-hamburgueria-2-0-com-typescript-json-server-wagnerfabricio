@@ -38,7 +38,7 @@ const SignUpForm = ({
   register,
 }: SignUpFormProps) => {
   const history = useHistory();
-  const {} = useAuth()
+  const {} = useAuth();
 
   return (
     <Grid
@@ -57,7 +57,7 @@ const SignUpForm = ({
         </Heading>
         <Link
           as={ReachLink}
-          to="/login"
+          to="/"
           fontSize="sm"
           color="gray.300"
           textDecoration="underline"
