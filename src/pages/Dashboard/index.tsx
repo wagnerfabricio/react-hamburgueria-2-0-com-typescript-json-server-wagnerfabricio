@@ -1,4 +1,4 @@
-import { Flex, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Heading, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { useCart } from "../../contexts/CartContext";
@@ -18,6 +18,7 @@ const Dashboard = () => {
         setLoading(false);
       })
       .catch((_) => {
+        setLoading(false);
         toast({
           position: "top",
           title: "Ooops...",
@@ -27,22 +28,12 @@ const Dashboard = () => {
           duration: 4000,
           isClosable: true,
         });
-        setLoading(false);
       });
 
     getCart()
       .then((_) => setLoading(false))
       .catch((_) => {
         setLoading(false);
-        toast({
-          position: "top",
-          title: "Ooops...",
-          description:
-            "Parece que sua sua sessão expirou, faça o login novamente para continuar comprando",
-          status: "error",
-          duration: 9000,
-          isClosable: true,
-        });
       });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,8 +48,23 @@ const Dashboard = () => {
       alignItems="center"
     >
       <Header />
-      <ProductList products={products} />
-      {loading && <h1>Ainda está carregando</h1>}
+
+      {loading ? (
+        <Grid placeItems="center" h="50vh">
+          <Grid placeItems="center">
+            <Button
+              isLoading={true}
+              bg="transparent"
+              _hover={{ bg: "transparent" }}
+            >
+              Carregando
+            </Button>
+            <Heading>Aguarde...</Heading>
+          </Grid>
+        </Grid>
+      ) : (
+        <ProductList products={products} />
+      )}
     </Flex>
   );
 };
