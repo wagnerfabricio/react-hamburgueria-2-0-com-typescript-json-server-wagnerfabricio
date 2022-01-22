@@ -52,7 +52,7 @@ const Signup = () => {
           isClosable: true,
         });
         setLoading(false);
-        history.push('/login')
+        history.push('/')
 
       })
       .catch((error) => {

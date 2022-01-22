@@ -1,12 +1,14 @@
 import { Flex, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
+import { useCart } from "../../contexts/CartContext";
 import { useProd } from "../../contexts/ProdContext";
 import ProductList from "./ProductList";
 
 const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const { getProducts, products } = useProd();
+  const { getCart } = useCart();
 
   const toast = useToast();
 
@@ -27,6 +29,22 @@ const Dashboard = () => {
         });
         setLoading(false);
       });
+
+    getCart()
+      .then((_) => setLoading(false))
+      .catch((_) => {
+        setLoading(false);
+        toast({
+          position: "top",
+          title: "Ooops...",
+          description:
+            "Parece que sua sua sessão expirou, faça o login novamente para continuar comprando",
+          status: "error",
+          duration: 9000,
+          isClosable: true,
+        });
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
