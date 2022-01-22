@@ -7,6 +7,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaMinus, FaPlus, FaTrash } from "react-icons/fa";
 import { useCart } from "../../contexts/CartContext";
 
@@ -26,7 +27,22 @@ interface CartCardProps {
 }
 
 const CartCard = ({ product }: CartCardProps) => {
-  const { addToCart, subFromCart, removeFromCart, isCartLoading } = useCart();
+  const [isCartLoading, setIsCartLoading] = useState(false);
+  const {
+    addToCart,
+    subFromCart,
+    removeFromCart,
+  } = useCart();
+
+  const handleAddToCart = async () => {
+    setIsCartLoading(true);
+    await addToCart(product).then((_) => setIsCartLoading(false));
+  };
+
+  const handleSubFromCart = async () => {
+    setIsCartLoading(true);
+    await subFromCart(product).then((_) => setIsCartLoading(false));
+  };
 
   return (
     <Grid maxWidth="450px" h="80px" gridTemplateColumns="80px 1fr" mt="14px">
@@ -60,7 +76,7 @@ const CartCard = ({ product }: CartCardProps) => {
               textAlign="center"
               borderRadius="none"
               _hover={{ bg: "gray.300" }}
-              onClick={() => subFromCart(product)}
+              onClick={() => handleSubFromCart()}
             >
               <Icon as={FaMinus} w="11px" color="red.secondary" />
             </Button>
@@ -85,7 +101,7 @@ const CartCard = ({ product }: CartCardProps) => {
               textAlign="center"
               borderRadius="none"
               _hover={{ bg: "gray.300" }}
-              onClick={() => addToCart(product.prodId)}
+              onClick={() => handleAddToCart()}
             >
               <Icon as={FaPlus} w="11px" color="red.secondary" />
             </Button>

@@ -17,8 +17,14 @@ interface iProduct {
 
 const ProdCard = ({ product }: ProdCardProps) => {
   const [colorSchema, setColorSchema] = useState(false);
-  const { addToCart, isCartLoading } = useCart();
+  const [isCartLoading, setIsCartLoading] = useState(false);
+  const { addToCart } = useCart();
   const formatedPrice = formatValue(product.price);
+
+  const handleAddToCart = async () => {
+    setIsCartLoading(true);
+    await addToCart(product).then((_) => setIsCartLoading(false));
+  };
 
   return (
     <Grid
@@ -60,7 +66,7 @@ const ProdCard = ({ product }: ProdCardProps) => {
           color="white"
           bg={colorSchema ? "green.primary" : "gray.150"}
           _hover={{ bg: "green.secondary" }}
-          onClick={() => addToCart(product.prodId)}
+          onClick={() => handleAddToCart()}
         >
           Adicionar
         </Button>

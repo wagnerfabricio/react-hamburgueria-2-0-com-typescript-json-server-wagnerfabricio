@@ -45,7 +45,8 @@ const Cart = ({ isOpen, onClose }: CartProps) => {
           Carrinho de compras
         </ModalHeader>
         <ModalCloseButton color="white" mt="2" />
-        {cart.length > 0 ? (
+        {cartTotal > 0 ? 
+        (
           <Box>
             <ModalBody>
               {cart.map((item) => (
@@ -86,7 +87,8 @@ const Cart = ({ isOpen, onClose }: CartProps) => {
               </Button>
             </ModalFooter>
           </Box>
-        ) : (
+        ) 
+        : (
           <Grid h="160px" placeItems="center">
             <Flex flexDirection="column" gap="10px" alignItems="center">
               <Heading as="h3" fontSize="lg" color="gray.900" fontWeight="bold">
