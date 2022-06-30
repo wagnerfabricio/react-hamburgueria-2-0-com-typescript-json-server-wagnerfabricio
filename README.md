@@ -17,7 +17,7 @@ Vercel deploy link: [https://ts-hamburgueria-wagnerfabricio.vercel.app/](https:/
 </div>
 </td>
 
-<table><tr><td valign="top" width="33%">
+<td valign="top" width="33%">
 
 ### Techs:
 
@@ -34,4 +34,4 @@ Vercel deploy link: [https://ts-hamburgueria-wagnerfabricio.vercel.app/](https:/
 <img style="margin: 10px" src="[https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/logo/logo-colored@2x.png](https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/logo/logo-colored@2x.png)" alt="ChakraUI" height="50" />
 </div>
 
-</td><td valign="top" width="33%">
+</td>
